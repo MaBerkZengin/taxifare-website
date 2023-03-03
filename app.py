@@ -1,7 +1,7 @@
 import streamlit as st
 
 '''
-# TaxiFareModel front
+# TaxiFareModel User Interface
 '''
 
 st.markdown('''
@@ -46,3 +46,7 @@ if url == 'https://taxifare.lewagon.ai/predict':
 
 ## Finally, we can display the prediction to the user
 '''
+
+import streamlit as st
+
+title = st.text_input('Please enter the date', 'Date')
