@@ -48,5 +48,26 @@ if url == 'https://taxifare.lewagon.ai/predict':
 '''
 
 import streamlit as st
+import datetime
+import re
+status = False
 
-title = st.text_input('Please enter the date', 'Date')
+date = st.date_input("Please enter the date like in the format below:",datetime.date(2019, 7, 6))
+
+time = st.time_input("Please enter the date like in the format below:",datetime.time(8, 45))
+
+datetime_ = str(date) + " " +str(time)
+
+st.write('Your Datetime is:', datetime_)
+
+inputs = ['pickup longitude','pickup latitude','dropoff longitude','dropoff latitude','passenger count']
+inputdict = {}
+for item in inputs:
+    inputdict[item] =  st.text_input(f'Please enter the {item}', item)
+
+st.text('  '.join(inputs))
+st.text('  '.join(inputdict.values()))
+#breakpoint()
+
+if st.button('Calculate Fare'):
+    print('Initializing....')
