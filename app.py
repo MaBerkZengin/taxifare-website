@@ -1,8 +1,42 @@
 import streamlit as st
-
+import requests
+import datetime
+import re
 '''
 # TaxiFareModel User Interface
 '''
+
+status = False
+
+date = st.date_input("Please enter the date like in the format below:",datetime.date(2019, 7, 6))
+
+time = st.time_input("Please enter the date like in the format below:",datetime.time(8, 45))
+
+datetime_ = str(date) + " " +str(time)
+
+st.write('Your Datetime is:', datetime_)
+
+
+p_long = st.text_input(f'Please enter the pickup longitude')
+p_lat = st.text_input(f'Please enter the pickup latitude')
+d_long = st.text_input(f'Please enter the dropoff longitude')
+d_lat = st.text_input(f'Please enter the pickup latitude')
+p_count = st.text_input(f'Please enter the numer of passengers')
+
+base_url  = 'https://taxifare.lewagon.ai/predict?'
+
+url = base_url + f'pickup_datetime={datetime_}&pickup_longitude={p_long}&pickup_latitude={p_lat}&dropoff_longitude={d_long}&dropoff_latitude={d_lat}&passenger_count={p_count}'
+
+if st.button('Calculate Fare'):
+    print('Initializing....')
+    response = requests.get(url).json()
+    print('Response....')
+
+'''
+# To be deleted
+'''
+
+
 
 st.markdown('''
 Remember that there are several ways to output content into your web page...
@@ -46,28 +80,3 @@ if url == 'https://taxifare.lewagon.ai/predict':
 
 ## Finally, we can display the prediction to the user
 '''
-
-import streamlit as st
-import datetime
-import re
-status = False
-
-date = st.date_input("Please enter the date like in the format below:",datetime.date(2019, 7, 6))
-
-time = st.time_input("Please enter the date like in the format below:",datetime.time(8, 45))
-
-datetime_ = str(date) + " " +str(time)
-
-st.write('Your Datetime is:', datetime_)
-
-inputs = ['pickup longitude','pickup latitude','dropoff longitude','dropoff latitude','passenger count']
-inputdict = {}
-for item in inputs:
-    inputdict[item] =  st.text_input(f'Please enter the {item}', item)
-
-st.text('  '.join(inputs))
-st.text('  '.join(inputdict.values()))
-#breakpoint()
-
-if st.button('Calculate Fare'):
-    print('Initializing....')
